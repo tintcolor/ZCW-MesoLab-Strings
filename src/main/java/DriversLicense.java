@@ -8,51 +8,46 @@ import java.util.regex.Pattern;
  */
 public class DriversLicense {
 
-    private static String firstName, lastName, address, state, sex, eyes, organDonor, drivingclass, licenseNumber, dob, issuedDate, height;
+    private  String firstName, lastName, address, state, sex, eyes, organDonor, drivingclass, licenseNumber, dob, issuedDate, height, expirationDate;
 
     DriversLicense() {
     }
 
-    DriversLicense(String firstName, String lastName, String address, String state, String sex, String eyes, String organDonor, String drivingclass, String licenseNumber, String dob, String issuedDate, String height) {
-
+    public DriversLicense(String firstName, String lastName, String address, String state, String sex, String eyes, String organDonor, String drivingclass, String licenseNumber, String dob, String issuedDate, String height, String expirationDate) {
         this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.state = state;
+        this.sex = sex;
+        this.eyes = eyes;
+        this.organDonor = organDonor;
+        this.drivingclass = drivingclass;
+        this.licenseNumber = licenseNumber;
+        this.dob = dob;
+        this.issuedDate = issuedDate;
+        this.height = height;
+        this.expirationDate = expirationDate;
     }
 
-    public static List<Object> deserializeFromCSV(String elements) {
+
+
+    public static List<DriversLicense> deserializeFromCSV(String elements) {
 
         Pattern pattern = Pattern.compile("^[A-Z][a-z]\\w+");
         Matcher matcher = pattern.matcher(elements);
-
-
-//        firstName = elements.split("^[A-Z][a-z]\\w+");
-
-        String[] separatedByCommas = elements.split(",");
-
         ArrayList<DriversLicense> newDriversLicense = new ArrayList<>();
-        for (int i = 0; i <= 7; i++) {
 
-
-            lastName = separatedByCommas[0];
-            firstName = separatedByCommas[1];
-            address = separatedByCommas[2];
-            state = separatedByCommas[3];
-            sex = separatedByCommas[4];
-            eyes = separatedByCommas[5];
-            organDonor = separatedByCommas[6];
-            drivingclass = separatedByCommas[7];
-            licenseNumber = separatedByCommas[8];
-            dob = separatedByCommas[9];
-            issuedDate = separatedByCommas[10];
-            height = separatedByCommas[11];
-
-            newDriversLicense.add(new DriversLicense(firstName, lastName, address, state, sex, eyes, organDonor, drivingclass, licenseNumber, dob, issuedDate, height));
-        }
 
         while (matcher.find()) {
             System.out.print(matcher.group());
         }
 
-        return null;
+        String[] separatedByLine = elements.split("\n");
+        for (int i = 0; i < separatedByLine.length; i++) {
+            String[] separatedByCommas = separatedByLine[i].split(",");
+                newDriversLicense.add(new DriversLicense(separatedByCommas[0], separatedByCommas[1], separatedByCommas[2], separatedByCommas[3],separatedByCommas[4], separatedByCommas[5], separatedByCommas[6], separatedByCommas[7],separatedByCommas[8], separatedByCommas[9], separatedByCommas[10], separatedByCommas[11], separatedByCommas[12]));
+        }
+        return newDriversLicense;
     }
 
 
@@ -119,3 +114,17 @@ public class DriversLicense {
 }
 
 
+/*
+firstName=separatedByCommas[j];
+        address=separatedByCommas[j];
+        state=separatedByCommas[j];
+        sex=separatedByCommas[j];
+        eyes=separatedByCommas[j];
+        organDonor=separatedByCommas[j];
+        drivingclass=separatedByCommas[j];
+        licenseNumber=separatedByCommas[j];
+        dob=separatedByCommas[j];
+        issuedDate=separatedByCommas[j];
+        height=separatedByCommas[j];
+
+*/
